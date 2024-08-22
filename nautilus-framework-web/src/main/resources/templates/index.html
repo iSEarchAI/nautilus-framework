@@ -4,11 +4,11 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 	<head th:replace="fragments/head :: title(#{app.name})"></head>
 	<body class="light-gray">
-		
+
 		<!-- <div th:replace="fragments/navbar :: default('home')"></div> -->
-	
+
 		<div class="container">
-			
+
             <div class="row mt-3">
                 <div class="col-4">
 			         <img th:src="@{/images/logo-with-name.png}" style="width: 300px"/>
@@ -35,11 +35,11 @@
                     </form>
                 </div>
 	        </div>
-			 
+
            <hr/>
-                        
-			
-			<div class="row mt-5"> 
+
+
+			<div class="row mt-5">
 			    <div class="col-lg-5">
                     <h4 class="mb-4 text-justify">Nautilus Framework is a free, plug and play extendable and, open source Java web platform framework that allows user feedback capturing, developing, and experimenting with several multi- and many-objective evolutionary algorithms.</h4>
                 </div>
@@ -47,16 +47,16 @@
                     <img th:src="@{/images/screenshot.png}" class="img-thumbnail rounded"/>
                 </div>
 			</div>
-			
-			
+
+
 			<h4 class="mt-5">Features</h4>
 			<hr/>
-			
-			<div class="row mt-5 text-center"> 
+
+			<div class="row mt-5 text-center">
                 <div class="col-4">
                     <i class="fa fa-4x fa-code mb-4 text-danger"></i>
                     <h5>Several Optimization Algorithms</h5>
-                    <p class="text-muted">Explore several multi- and many-objective optimization algorithms such as NSGA-III, IBEA, and much more</p> 
+                    <p class="text-muted">Explore several multi- and many-objective optimization algorithms such as NSGA-III, IBEA, and much more</p>
                 </div>
                 <div class="col-4">
                     <i class="fa fa-4x fa-area-chart mb-4 text-primary"></i>
@@ -66,10 +66,10 @@
                 <div class="col-4">
                     <i class="fa fa-4x fa-user mb-4 text-success"></i>
                     <h5>User-driven Interaction</h5>
-                    <p class="text-muted">Select the best solutions, provide your own preferences, and customize the user interface</p> 
+                    <p class="text-muted">Select the best solutions, provide your own preferences, and customize the user interface</p>
                 </div>
             </div>
-            
+
 			<h4 class="mt-5">Principles</h4>
             <hr/>
 			<ul class="text-justify">
@@ -79,10 +79,10 @@
                 <li class="mt-3"><strong>Performance and Scalability</strong>: Nautilus is a web platform application that executes in cloud computing. This last characteristic allows automatic software updates, mobility, performance, and scalability. For instance, it is possible to read large problem instances by splitting them in multiple small sub-routines, and calculate the objective functions or run multiple algorithms in parallel;</li>
                 <li class="mt-3"><strong>Customizability</strong>: Nautilus provides a multi-user system in which each user can customize some information and upload to the tool his/her own problem instances to be optimized. Also, the users are able to change some information they visualize about the found solutions, and customize some interface features.</li>
             </ul>
-            
+
             <h4 class="mt-5">Architecture</h4>
-            <hr/>     
-                    
+            <hr/>
+
 			<div class="row mt-3">
                 <div class="col-lg-5">
                      <img th:src="@{/images/nautilus-architecture-v3.png}" class="img-thumbnail rounded mb-3" style="width: 100%"/>
@@ -92,19 +92,19 @@
 		                <li><strong>Nautilus-Core</strong>: is the most important module because it contains the base classes required by the other modules. For instance, it provides the classes responsible for defining the encoding type of the problems supported, such as Binary, Integer, and Double encoding solutions.</li>
                         <li class="mt-3"><strong>Nautilus-Plugin</strong>: is responsible for providing extensible classes in which the user can create his/her own plugin for Nautilus and adapt his/her needs to the tool. </li>
 		                <li class="mt-3"><strong>Nautilus-Web</strong>: is the module responsible for in, providing a user interface based on a web platform. Through this interface, it is possible to execute the algorithms, visualize the found solutions, interact with the tool, provide the user preferences and feedback about the solutions.</li>
-		            </ul> 
+		            </ul>
                 </div>
-            </div>    
-            
+            </div>
+
             <h4 class="mt-4">Plugins</h4>
             <hr/>
             <ul class="text-justify">
                 <li>Toy Problem</li>
                 <li class="mt-3"><a href="https://github.com/nautilus-framework/nautilus-plugin-nrp">NRP Problem</a>: Next Release Problem</li>
-                <li class="mt-3"><a href="https://github.com/nautilus-framework/nautilus-plugin-vtspl">VTSPL Problem</a>: Variability Testing of Software Product Lines Problem </li> 
+                <li class="mt-3"><a href="https://github.com/nautilus-framework/nautilus-plugin-vtspl">VTSPL Problem</a>: Variability Testing of Software Product Lines Problem </li>
             </ul>
 		</div>
-	
+
 		<div th:replace="fragments/footer :: footer"></div>
 	</body>
 </html>

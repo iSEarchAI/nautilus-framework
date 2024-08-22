@@ -34,15 +34,15 @@ import org.springframework.context.event.ContextRefreshedEvent;
 
 @Configuration
 public class PluginConfiguration  implements ApplicationListener<ContextRefreshedEvent>{
-    
+
     private static final Logger LOGGER = LoggerFactory.getLogger(PluginConfiguration.class);
-    
+
     @Autowired
     protected PluginService pluginService;
-    
+
     @Autowired
     protected FileService fileService;
-    
+
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
 
@@ -52,57 +52,64 @@ public class PluginConfiguration  implements ApplicationListener<ContextRefreshe
 
         for (Class<?> c : classes) {
 
+
             if (c.isAnnotation() || c.isInterface() || Modifier.isAbstract(c.getModifiers())) {
                 continue;
             }
 
-            ExtensionPoint ep = getNewInstance(c);
-            
-            LOGGER.info("Adding plugin {}", ep.getClass().getCanonicalName());
+            Object ep = getNewInstance(c);
+            if (ep == null)
+                return;
+
+            try {
+                LOGGER.info("Adding plugin {}", ep.getClass().getCanonicalName());
+            } catch (NullPointerException ex) {
+                System.out.println(ex);
+            }
 
             if (ep instanceof AbstractProblemExtension) {
-                pluginService.getProblems().put(ep.getId(), (ProblemExtension) ep);
+                pluginService.getProblems().put(((AbstractProblemExtension) ep).getId(), (ProblemExtension) ep);
             }
-            
+
             if (ep instanceof AbstractAlgorithmExtension) {
-                pluginService.getAlgorithms().put(ep.getId(), (AlgorithmExtension) ep);
+                pluginService.getAlgorithms().put(((AbstractAlgorithmExtension) ep).getId(), (AlgorithmExtension) ep);
             }
 
             if (ep instanceof AbstractSelectionExtension) {
-                pluginService.getSelections().put(ep.getId(), (SelectionExtension) ep);
+                pluginService.getSelections().put(((AbstractSelectionExtension) ep).getId(), (SelectionExtension) ep);
             }
-            
+
             if (ep instanceof AbstractCrossoverExtension) {
-                pluginService.getCrossovers().put(ep.getId(), (CrossoverExtension) ep);
+                pluginService.getCrossovers().put(((AbstractCrossoverExtension) ep).getId(), (CrossoverExtension) ep);
             }
-            
+
             if (ep instanceof AbstractMutationExtension) {
-                pluginService.getMutations().put(ep.getId(), (MutationExtension) ep);
+                pluginService.getMutations().put(((AbstractMutationExtension) ep).getId(), (MutationExtension) ep);
             }
-             
+
             if (ep instanceof AbstractNormalizerExtension) {
-                pluginService.getNormalizers().put(ep.getId(), (NormalizerExtension) ep);
+                pluginService.getNormalizers().put(((AbstractNormalizerExtension) ep).getId(), (NormalizerExtension) ep);
             }
 
             if (ep instanceof AbstractCorrelationExtension) {
-                pluginService.getCorrelations().put(ep.getId(), (CorrelationExtension) ep);
+                pluginService.getCorrelations().put(((AbstractCorrelationExtension) ep).getId(), (CorrelationExtension) ep);
             }
-            
+
             if (ep instanceof AbstractRemoverExtension) {
-                pluginService.getRemovers().put(ep.getId(), (RemoverExtension) ep);
+                pluginService.getRemovers().put(((AbstractRemoverExtension) ep).getId(), (RemoverExtension) ep);
             }
         }
-        
+
         for (ProblemExtension problem : pluginService.getProblems().values()) {
             fileService.createProblemLocation(problem.getId());
         }
     }
-     
-    protected ExtensionPoint getNewInstance(Class<?> c) {
+
+    protected Object getNewInstance(Class<?> c) {
 
         try {
             Constructor<?> ctr = c.getConstructor();
-            return (ExtensionPoint) ctr.newInstance();
+            return ctr.newInstance();
         } catch (Exception e) {
             e.printStackTrace();
         }
